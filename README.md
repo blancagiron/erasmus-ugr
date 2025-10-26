@@ -2,7 +2,7 @@
 
 ![Logo TFG](frontend/src/assets/logo-tfg-final-v2.svg)
 
-Este repositorio contiene el desarrollo del **Trabajo Fin de Grado de Ingeniería Aeroespacial** en la **Universidad de Granada**.
+Este repositorio contiene el desarrollo del **Trabajo Fin de Grado de Ingeniería Informatica** en la **Universidad de Granada**.
 
 El proyecto consiste en una **plataforma web** que facilita la gestión de los acuerdos de estudios Erasmus+, permitiendo a **estudiantes, tutores y administradores** interactuar de manera ágil y transparente en los procesos de movilidad internacional.
 

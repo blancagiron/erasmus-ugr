@@ -372,10 +372,11 @@ export default function EditarDestinoModal({ destino, onClose }) {
                               body: formData,
                             });
                             const data = await res.json();
-                            if (data.url) {
+                            const url = typeof data.url === "string" ? data.url : data.url?.url;
+                            if (url) {
                               setDatos((prev) => ({
                                 ...prev,
-                                imagenes: { ...prev.imagenes, principal: data.url },
+                                imagenes: { ...prev.imagenes, principal: url },
                               }));
                             }
                           }}
@@ -449,11 +450,12 @@ export default function EditarDestinoModal({ destino, onClose }) {
                               body: formData,
                             });
                             const data = await res.json();
-                            if (data.url) {
+                            const url = typeof data.url === "string" ? data.url : data.url?.url;
+                            if (url) {
                               const actuales = datos.imagenes?.secundarias || [];
                               setDatos((prev) => ({
                                 ...prev,
-                                imagenes: { ...prev.imagenes, secundarias: [...actuales, data.url] },
+                                imagenes: { ...prev.imagenes, secundarias: [...actuales, url] },
                               }));
                             }
                           }}

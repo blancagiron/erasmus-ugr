@@ -1,4 +1,3 @@
-// components/layout/PaginaLayout.jsx
 import { useState } from "react";
 import Sidebar from "../dashboard/Sidebar";
 import { Menu } from "lucide-react";

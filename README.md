@@ -47,43 +47,78 @@ Además, el sistema genera automáticamente los **PDF oficiales** de acuerdos de
 
 ---
 
-## Instalación y despliegue
+# Instalación y despliegue
 
-### Requisitos previos
+## Requisitos previos
 
-* Node.js y npm instalados.
-* Python 3.9+.
-* MongoDB en ejecución local (o en contenedor Docker).
+- Node.js y npm instalados.
+- Python 3.9+.
+- Docker Desktop (recomendado) o MongoDB instalado localmente.
 
-### Backend
+## 1. Base de Datos (Docker)
 
+El proyecto incluye un archivo `docker-compose.yml` para levantar la base de datos fácilmente.
+```bash
+# Desde la raíz del proyecto
+docker-compose up -d
+```
+
+Esto iniciará MongoDB en el puerto 27017 y Mongo Express (interfaz visual) en el 8081.
+
+⚠️ **Importante sobre los datos:**
+
+Al iniciar el proyecto por primera vez, la base de datos estará vacía. Esto es intencionado: la carpeta de persistencia de datos (`data/`) está excluida del repositorio (`.gitignore`) para no compartir información de bases de datos locales.
+
+Para cargar datos iniciales (grados, asignaturas y experiencias), debes utilizar los scripts de utilidad incluidos en el backend una vez hayas instalado las dependencias (ver paso siguiente).
+
+## 2. Backend
 ```bash
 # Clonar el repositorio
-git clone <URL_REPO>
+git clone <URL_REPOSITORIO>
 cd backend/
 
 # Crear y activar entorno virtual
 python3 -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
 # Instalar dependencias
 pip install -r requirements.txt
+```
 
-# Ejecutar servidor (Ubuntu)
+### Poblado de datos (Opcional pero recomendado)
+
+Antes de iniciar el servidor, puedes poblar la base de datos utilizando los scripts ubicados en `utils/` (asegúrate de tener los archivos CSV necesarios):
+
+**Insertar Grados:** Requiere código, siglas, nombre y código de centro.
+```bash
+# Ejemplo:
+python utils/insertar_grados.py 296 GII "Grado en Ingeniería Informática" 015
+```
+
+**Insertar Asignaturas:** Carga asignaturas desde un CSV para un grado específico.
+```bash
+# Uso:
+python utils/insertar_asignaturas.py <ruta_csv> <siglas_grado> <codigo_grado> <codigo_centro>
+
+# Ejemplo:
+python utils/insertar_asignaturas.py utils/Asignaturas_GIIT.csv GII 296 015
+```
+
+**Insertar Experiencias:** Carga reseñas y valoraciones desde un CSV.
+```bash
+python utils/insertar_experiencias.py utils/EXPERIENCIAS.csv
+```
+
+### Ejecutar servidor
+```bash
+# Ejecutar servidor (Ubuntu/Mac)
 python3 app.py
 ```
 
-El servidor estará disponible en **[http://localhost:5000](http://localhost:5000)**.
-En tu terminal aparecerá algo como:
+El servidor estará disponible en http://localhost:5000.
 
-```
-backend (main) » python3 app.py
-blanca@blanca-ThinkBook-15-G2-ITL
-```
-
-### Frontend
-
+## 3. Frontend
 ```bash
 cd frontend/
 
@@ -94,11 +129,12 @@ npm install
 npm run dev
 ```
 
-La aplicación estará disponible en **[http://localhost:5173](http://localhost:5173)**.
-
-De momento sólo está disponible en local, pero se espera poder desplegarla en un futuro.
+La aplicación estará disponible en http://localhost:5173.
 
 ---
+
+De momento sólo está disponible en local, pero se está trabajando para desplegarla.
+
 
 ## Funcionalidades principales
 
@@ -145,7 +181,7 @@ De momento sólo está disponible en local, pero se espera poder desplegarla en 
 │
 └── README.md
 
----
+```
 
 ## Autoría
 
